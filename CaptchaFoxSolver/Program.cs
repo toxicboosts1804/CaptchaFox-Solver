@@ -16,11 +16,10 @@ public class Program
         Environment.SetEnvironmentVariable("DOTNET_SYSTEM_NET_HTTP_ENABLEACTIVITYPROPAGATION", "false");
         if (!File.Exists("Config.json"))
         {
-            Console.WriteLine("Modify 'Config.json' to your liking and start the program again");
-
+            Console.WriteLine("Config.json not found, creating with default values...");
             Config = new SolverConfig
             {
-                AuthorizationToken = string.Join("", RandomNumberGenerator.GetHexString(64, true).Select(x => Random.Shared.NextSingle() > .5 ? char.ToUpper(x) : x)),
+                AuthorizationToken = Environment.GetEnvironmentVariable("AUTH_TOKEN") ?? string.Join("", RandomNumberGenerator.GetHexString(64, true).Select(x => Random.Shared.NextSingle() > .5 ? char.ToUpper(x) : x)),
                 Host = "http://*:5462",
                 ChallengeWidth = 250,
                 SampleN = 50,
@@ -32,11 +31,7 @@ public class Program
                 MaxConcurrency = 50
             };
             File.WriteAllText("Config.json", JsonSerializer.Serialize(Config, new JsonSerializerOptions { WriteIndented = true}));
-
-            // Console.WriteLine("Press any key to continue...");
-            // Console.ReadKey();
-
-            Environment.Exit(0);
+            Console.WriteLine("Config.json created successfully. Starting server...");
         }
         else Config = JsonSerializer.Deserialize<SolverConfig>(File.ReadAllText("Config.json"))!;
 
