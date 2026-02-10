@@ -19,6 +19,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /app/out .
 
+# Copy Config.json from the repository root to /app in the container
+COPY Config.json /app/Config.json
+
 # Expose the port the app runs on
 EXPOSE 5462
 
