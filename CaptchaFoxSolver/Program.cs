@@ -33,8 +33,8 @@ public class Program
             };
             File.WriteAllText("Config.json", JsonSerializer.Serialize(Config, new JsonSerializerOptions { WriteIndented = true}));
 
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
+            // Console.WriteLine("Press any key to continue...");
+            // Console.ReadKey();
 
             Environment.Exit(0);
         }
