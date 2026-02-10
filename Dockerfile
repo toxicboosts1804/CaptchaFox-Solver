@@ -1,28 +1,28 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-   WORKDIR /app
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /app
 
-   # Copy solution and project files
-   COPY *.sln ./
-   COPY CaptchaFoxSolver/*.csproj ./CaptchaFoxSolver/
+# Copy solution and project files
+COPY *.sln ./
+COPY CaptchaFoxSolver/*.csproj ./CaptchaFoxSolver/
 
-   # Restore dependencies
-   RUN dotnet restore
+# Restore dependencies
+RUN dotnet restore
 
-   # Copy everything else
-   COPY . ./
+# Copy everything else
+COPY . ./
 
-   # Build and publish
-   RUN dotnet publish CaptchaFoxSolver/CaptchaFoxSolver.csproj -c Release -o out
+# Build and publish
+RUN dotnet publish CaptchaFoxSolver/CaptchaFoxSolver.csproj -c Release -o out
 
-   # Runtime image
-   FROM mcr.microsoft.com/dotnet/aspnet:8.0
-   WORKDIR /app
-   COPY --from=build /app/out .
+# Runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
+WORKDIR /app
+COPY --from=build /app/out .
 
-   # Expose the port the app runs on
-   EXPOSE 5462
+# Expose the port the app runs on
+EXPOSE 5462
 
-   # Set environment variable for the port
-   ENV ASPNETCORE_URLS=http://+:5462
+# Set environment variable for the port
+ENV ASPNETCORE_URLS=http://+:5462
 
-   ENTRYPOINT ["dotnet", "CaptchaFoxSolver.dll"]
+ENTRYPOINT ["dotnet", "CaptchaFoxSolver.dll"]
