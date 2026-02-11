@@ -20,7 +20,7 @@ public class Program
             Config = new SolverConfig
             {
                 AuthorizationToken = "MySecretAuthKey123",
-                Host = "http://*:5462",
+                Host = "http://*:5461",
                 ChallengeWidth = 250,
                 SampleN = 50,
                 CursorStepsPerSecond = 44,
