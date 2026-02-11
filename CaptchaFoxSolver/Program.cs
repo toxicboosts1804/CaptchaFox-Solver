@@ -20,7 +20,7 @@ public class Program
             Config = new SolverConfig
             {
                 AuthorizationToken = "MySecretAuthKey123",
-                Host = "http://*:5461",
+                Host = "http://0.0.0.0:5462",
                 ChallengeWidth = 250,
                 SampleN = 50,
                 CursorStepsPerSecond = 44,
@@ -62,6 +62,5 @@ public class Program
         app.Logger.LogWarning("Issues about anything other than the solver will be closed" + Environment.NewLine + Environment.NewLine + Environment.NewLine);
 
         app.Run(Config.Host);
-        return Task.CompletedTask;
     }
 }
