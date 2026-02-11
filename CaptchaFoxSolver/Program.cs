@@ -19,7 +19,7 @@ public class Program
             Console.WriteLine("Config.json not found, creating with default values...");
             Config = new SolverConfig
             {
-                AuthorizationToken = Environment.GetEnvironmentVariable("AUTH_TOKEN") ?? string.Join("", RandomNumberGenerator.GetHexString(64, true).Select(x => Random.Shared.NextSingle() > .5 ? char.ToUpper(x) : x)),
+                AuthorizationToken = "MySecretAuthKey123",
                 Host = "http://*:5462",
                 ChallengeWidth = 250,
                 SampleN = 50,
